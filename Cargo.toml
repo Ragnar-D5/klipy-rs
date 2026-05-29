@@ -1,0 +1,20 @@
+[package]
+authors = ["vyfor"]
+categories = ["api-bindings"]
+description = "Async Rust client for the KLIPY API"
+edition = "2024"
+keywords = ["klipy", "api", "gif", "emoji", "media"]
+license = "MIT OR Apache-2.0"
+name = "klipy"
+repository = "https://github.com/vyfor/klipy-rs"
+version = "0.1.0"
+
+[dependencies]
+reqwest = { version = "0.13", default-features = false, features = ["json", "rustls", "query"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+
+[dev-dependencies]
+dotenvy = "0.15"
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
