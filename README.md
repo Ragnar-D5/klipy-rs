@@ -1,8 +1,7 @@
-# klipy [![crates badge]][crates.io] [![docs badge]][docs.rs]
-[crates badge]: https://img.shields.io/crates/v/klipy
-[crates.io]: https://crates.io/crates/klipy
-[docs badge]: https://img.shields.io/badge/docs.rs-rustdoc-green
-[docs.rs]: https://docs.rs/klipy
+# klipy
+
+<a href="https://crates.io/crates/klipy"><img src="https://img.shields.io/crates/v/klipy?style=for-the-badge"></a>
+<a href="https://docs.rs/klipy"><img src="https://img.shields.io/badge/docs.rs-rustdoc-green?style=for-the-badge"></a>
 
 Async Rust client for the [KLIPY API](https://docs.klipy.com)
 
