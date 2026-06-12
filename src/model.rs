@@ -1,15 +1,15 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 
 /// Generic envelope wrapping every response.
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub(crate) struct Envelope<T> {
     pub result: bool,
     pub data: Option<T>,
 }
 
 /// A single concrete media file.
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct File {
     pub url: String,
     pub width: u32,
@@ -18,7 +18,7 @@ pub struct File {
 }
 
 /// The set of formats available at a given size.
-#[derive(Debug, Clone, Default, Deserialize)]
+#[derive(Debug, Clone, Default, Deserialize, Serialize)]
 pub struct Formats {
     pub gif: Option<File>,
     pub webp: Option<File>,
@@ -29,7 +29,7 @@ pub struct Formats {
 }
 
 /// Renditions of a media item across its available sizes.
-#[derive(Debug, Clone, Default, Deserialize)]
+#[derive(Debug, Clone, Default, Deserialize, Serialize)]
 pub struct Sizes {
     pub hd: Option<Formats>,
     pub md: Option<Formats>,
@@ -38,7 +38,7 @@ pub struct Sizes {
 }
 
 /// A GIF, sticker, meme, or emoji item.
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct MediaItem {
     pub id: i64,
     pub slug: String,
@@ -52,14 +52,14 @@ pub struct MediaItem {
 }
 
 /// Width/height pair for a clip rendition.
-#[derive(Debug, Clone, Copy, Deserialize)]
+#[derive(Debug, Clone, Copy, Deserialize, Serialize)]
 pub struct Dimensions {
     pub width: u32,
     pub height: u32,
 }
 
 /// Direct URLs for a clip's renditions.
-#[derive(Debug, Clone, Default, Deserialize)]
+#[derive(Debug, Clone, Default, Deserialize, Serialize)]
 pub struct ClipFiles {
     pub mp4: Option<String>,
     pub gif: Option<String>,
@@ -67,7 +67,7 @@ pub struct ClipFiles {
 }
 
 /// A movie/video clip item.
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct ClipItem {
     pub url: String,
     pub title: String,
@@ -85,7 +85,7 @@ pub struct ClipItem {
 /// An advertisement object. If ads are enabled for your app, some API
 /// responses may include an advertisement object alongside content objects.
 /// When `type` is `"ad"`, the object is an advertisement.
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct AdItem {
     /// HTML content to display (webview for mobile apps).
     pub content: String,
@@ -96,14 +96,14 @@ pub struct AdItem {
 }
 
 /// The generated emoji data.
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct GeneratedEmoji {
     pub base64_encoded: String,
     pub mime_type: String,
 }
 
 /// Status of an AI Emoji generation request.
-#[derive(Debug, Clone, PartialEq, Eq, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize)]
 #[serde(rename_all = "lowercase")]
 pub enum GenerationStatus {
     Processing,
@@ -112,7 +112,7 @@ pub enum GenerationStatus {
 }
 
 /// Status and result of an AI Emoji generation request.
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct EmojiStatus {
     pub id: String,
     pub status: GenerationStatus,
@@ -120,7 +120,7 @@ pub struct EmojiStatus {
 }
 
 /// A list entry: either content of type `T` or an advertisement.
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum Item<T> {
     Content(T),
@@ -146,7 +146,7 @@ impl<T> Item<T> {
 }
 
 /// Metadata returned alongside AI Emoji list responses.
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct EmojiMeta {
     /// Minimum display width for each emoji item, in pixels.
     pub item_min_width: Option<u32>,
@@ -157,7 +157,7 @@ pub struct EmojiMeta {
 /// A paginated list of items. Pagination fields are absent for the
 /// `items` endpoint. The `meta` field is present only on
 /// AI Emoji list responses.
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Page<T> {
     pub data: Vec<Item<T>>,
     pub current_page: Option<u32>,
@@ -180,7 +180,7 @@ impl<T> Page<T> {
 }
 
 /// A curated content category.
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Category {
     pub category: String,
     pub query: String,
@@ -188,7 +188,7 @@ pub struct Category {
 }
 
 /// The payload returned by a `categories` request.
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Categories {
     pub locale: String,
     pub categories: Vec<Category>,
